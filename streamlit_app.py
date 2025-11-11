@@ -18,11 +18,10 @@ bubbletea_selected = st.selectbox("Do you drink bubble tea more than 3X a week?"
 gender_selected = st.selectbox("Gender", gender)
 
 if st.button("Predict diabetes risk"):
-    st.markdown("<h2 style='color: green;'>Your Predicted Diabetes Risk: No risk of diabetes</h2>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: green;'>You're safe. No risk of diabetes</h3>", unsafe_allow_html=True)
     st.markdown("<h3 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h3>", unsafe_allow_html=True)
 
     if st.button("Reveal the truth"):
-        st.markdown("<h2 style='color: red;'>This model predicts 'No Diabetes' for EVERYONE!</h2>", unsafe_allow_html=True)
         st.write("It looks good because 84% of people in the dataset are healthy.")
         st.write("But it misses ALL diabetic patients. Would you trust this model?")
 
