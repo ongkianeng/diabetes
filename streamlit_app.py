@@ -26,32 +26,50 @@ gender_selected = st.selectbox("Gender", gender)
 if st.button("Predict diabetes risk"):
     st.session_state.predicted = True
 
-# Show prediction if triggered
-if st.session_state.predicted:
-    st.markdown("<h2 style='color: green;'>Your Predicted Diabetes Risk: No risk of diabetes</h2>", unsafe_allow_html=True)
-    st.markdown("<h3 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h3>", unsafe_allow_html=True)
+# Layout: Two columns
+col1, col2 = st.columns(2)
 
-    # Reveal button
-    if st.button("Reveal the truth"):
-        st.session_state.revealed = True
+# Left pane: Prediction
+with col1:
+    if st.session_state.predicted:
+        st.markdown("<h2 style='color: green;'>Your Predicted Diabetes Risk:</h2>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: green;'>No risk of diabetes</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h3>", unsafe_allow_html=True)
 
-# Show reveal section if triggered
-if st.session_state.revealed:
-    st.markdown("<h2 style='color: red;'>This model predicts 'No Diabetes' for EVERYONE!</h2>", unsafe_allow_html=True)
-    st.write("It looks good because 84% of people in the dataset are healthy.")
-    st.write("But it misses ALL diabetic patients. Would you trust this model?")
+        if st.button("Reveal the truth"):
+            st.session_state.revealed = True
 
-    # Pie chart
-    labels = ['No Diabetes', 'Diabetes']
-    sizes = [84, 16]
-    colors = ['#4CAF50', '#FF5722']
-    fig, ax = plt.subplots()
-    ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors)
-    st.pyplot(fig)
+# Right pane: Reveal section
+with col2:
+    if st.session_state.revealed:
+        st.markdown("<h2 style='color: red;'>Reality Check</h2>", unsafe_allow_html=True)
+        st.write("This model predicts 'No Diabetes' for EVERYONE!")
+        st.write("It looks good because 84% of people in the dataset are healthy.")
+        st.write("But it misses ALL diabetic patients. Would you trust this model?")
 
-    # Reflection question
-    choice = st.radio("Do you think 84% accuracy means the model is good?", ["Yes", "No"])
-    if choice == "Yes":
-        st.warning("Think again! Accuracy can hide dangerous mistakes when data is imbalanced.")
-    else:
-        st.success("Correct! Accuracy alone can be misleading in healthcare.")
+        # Dramatic scenario
+        st.markdown("""
+        <div style='background-color:#ffe6e6; padding:15px; border-radius:10px;'>
+        <h3 style='color:#b30000;'>Imagine this...</h3>
+        <p style='font-size:18px;'>
+        Imagine Mr X goes for a health check-up. The model says: <b>'No risk of diabetes'</b>. Mr X feel safe.<br><br>
+        Six months later, Mr X collapses from undiagnosed diabetes complications.<br>
+        The model was <b>84% accurate</b>—but for Mr X, it was 0%.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Pie chart
+        labels = ['No Diabetes', 'Diabetes']
+        sizes = [84, 16]
+        colors = ['#4CAF50', '#FF5722']
+        fig, ax = plt.subplots()
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors)
+        st.pyplot(fig)
+
+        # Reflection question
+        choice = st.radio("Do you think 84% accuracy means the model is good?", ["Yes", "No"])
+        if choice == "Yes":
+            st.warning("Think again! Accuracy can hide dangerous mistakes when data is imbalanced.")
+        else:
+            st.success("Correct! Accuracy alone can be misleading in healthcare.")
