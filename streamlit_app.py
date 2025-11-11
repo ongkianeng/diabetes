@@ -26,33 +26,36 @@ gender_selected = st.selectbox("Gender", gender)
 if st.button("Predict diabetes risk"):
     st.session_state.predicted = True
 
-# Layout: Two columns
+# Reveal button (always visible after prediction)
+if st.session_state.predicted and st.button("Reveal the truth"):
+    st.session_state.revealed = True
+
+# Two columns layout
 col1, col2 = st.columns(2)
 
 # Left pane: Prediction
 with col1:
+    st.subheader("Prediction")
     if st.session_state.predicted:
-        st.markdown("<h2 style='color: green;'>Your Predicted Diabetes Risk:</h2>", unsafe_allow_html=True)
         st.markdown("<h3 style='color: green;'>No risk of diabetes</h3>", unsafe_allow_html=True)
-        st.markdown("<h3 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h3>", unsafe_allow_html=True)
-
-        if st.button("Reveal the truth"):
-            st.session_state.revealed = True
+        st.markdown("<h4 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h4>", unsafe_allow_html=True)
+    else:
+        st.info("Click 'Predict diabetes risk' to see the result.")
 
 # Right pane: Reveal section
 with col2:
+    st.subheader("Reality Check")
     if st.session_state.revealed:
-        st.markdown("<h2 style='color: red;'>Reality Check</h2>", unsafe_allow_html=True)
-        st.write("This model predicts 'No Diabetes' for EVERYONE!")
+        st.markdown("<h3 style='color: red;'>This model predicts 'No Diabetes' for EVERYONE!</h3>", unsafe_allow_html=True)
         st.write("It looks good because 84% of people in the dataset are healthy.")
         st.write("But it misses ALL diabetic patients. Would you trust this model?")
 
         # Dramatic scenario
         st.markdown("""
         <div style='background-color:#ffe6e6; padding:15px; border-radius:10px;'>
-        <h3 style='color:#b30000;'>Imagine this...</h3>
-        <p style='font-size:18px;'>
-        Imagine Mr X goes for a health check-up. The model says: <b>'No risk of diabetes'</b>. Mr X feel safe.<br><br>
+        <h4 style='color:#b30000;'>Imagine this...</h4>
+        <p style='font-size:16px;'>
+        Mr X went for a health check-up. The model says: <b>'No risk of diabetes'</b>. Mr X feels safe.<br><br>
         Six months later, Mr X collapses from undiagnosed diabetes complications.<br>
         The model was <b>84% accurate</b>—but for Mr X, it was 0%.
         </p>
@@ -73,3 +76,5 @@ with col2:
             st.warning("Think again! Accuracy can hide dangerous mistakes when data is imbalanced.")
         else:
             st.success("Correct! Accuracy alone can be misleading in healthcare.")
+    else:
+        st.info("Click 'Reveal the truth' to uncover the reality.")
