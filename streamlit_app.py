@@ -31,14 +31,11 @@ with col1:
 
 # Right pane: Prediction or Reveal
 with col2:
-    st.subheader("Prediction & Reality")
-
     if st.button("Predict your diabetes risk"):
         st.session_state.predicted = True
         st.session_state.revealed = False
 
     if st.session_state.predicted and not st.session_state.revealed:
-        st.markdown("<h3 style='color: yellow;'>Predicted Diabetes Risk:</h3>", unsafe_allow_html=True)
         st.markdown("<h4 style='color: yellow;'>No risk of diabetes</h4>", unsafe_allow_html=True)
         st.markdown("<h4 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h4>", unsafe_allow_html=True)
 
