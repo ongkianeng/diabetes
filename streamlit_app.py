@@ -15,31 +15,32 @@ col1, col2 = st.columns([1, 1])  # Equal width
 # Left pane: Inputs
 with col1:
     st.subheader("Your Lifestyle Info")
+    gender = ['Male', 'Female']
     fruits = ['Yes', 'No']
     veggies = ['Yes', 'No']
     fried_food = ['Yes', 'No']
     bubbletea = ['Yes', 'No']
-    gender = ['Male', 'Female']
-
+    
+    gender_selected = st.selectbox("Gender", gender)
     fruits_selected = st.selectbox("Do you eat fruits daily?", fruits)
     veggies_selected = st.selectbox("Do you eat vegetables daily?", veggies)
-    fried_food_selected = st.selectbox("Do you eat fried food daily?", fried_food)
-    bubbletea_selected = st.selectbox("Do you drink bubble tea more than 3X a week?", bubbletea)
-    gender_selected = st.selectbox("Gender", gender)
+    fried_food_selected = st.selectbox("Do you eat fried food more than 2X a week?", fried_food)
+    bubbletea_selected = st.selectbox("Do you drink bubble tea more than 2X a week?", bubbletea)
+    
 
 # Right pane: Prediction or Reveal
 with col2:
     st.subheader("Prediction & Reality")
 
     # Predict button
-    if st.button("Predict diabetes risk"):
+    if st.button("Predict your diabetes risk"):
         st.session_state.predicted = True
         st.session_state.revealed = False  # Reset reveal if clicked again
 
     # Show prediction only if not revealed
     if st.session_state.predicted and not st.session_state.revealed:
-        st.markdown("<h3 style='color: green;'>Predicted Diabetes Risk:</h3>", unsafe_allow_html=True)
-        st.markdown("<h4 style='color: green;'>No risk of diabetes</h4>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: yellow;'>Predicted Diabetes Risk:</h3>", unsafe_allow_html=True)
+        st.markdown("<h4 style='color: yellow;'>No risk of diabetes</h4>", unsafe_allow_html=True)
         st.markdown("<h4 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h4>", unsafe_allow_html=True)
 
         if st.button("Reveal the truth"):
@@ -47,15 +48,15 @@ with col2:
 
     # Reveal section replaces prediction
     if st.session_state.revealed:
-        st.markdown("<h3 style='color: red;'>Reality Check</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: yellow;'>Reality Check</h3>", unsafe_allow_html=True)
         st.write("This model predicts 'No Diabetes' for EVERYONE!")
         st.write("It looks good because 84% of people in the dataset are healthy.")
         st.write("But it misses ALL diabetic patients. Would you trust this model?")
 
         # Dramatic scenario with visible red background
         st.markdown("""
-        <div style='background-color:#ffcccc; padding:15px; border-radius:10px;'>
-        <h4 style='color:#b30000;'>Imagine this...</h4>
+        <div style='background-color:maroon; padding:15px; border-radius:10px;'>
+        <h4 style='color:yellow;'>Imagine this...</h4>
         <p style='font-size:16px;'>
         Mr X goes for a health check-up. The model says: <b>'No risk of diabetes'</b>. He feels safe.<br><br>
         Six months later, Mr X collapses from undiagnosed diabetes complications.<br>
