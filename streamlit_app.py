@@ -55,7 +55,7 @@ with col2:
         
 
                 # Reflection question
-                choice = st.radio("Would you trust this model?", ["Yes", "No"])
+                choice = st.radio("Would you trust this model?", ["Yes", "No"], index=None,)
                 if choice == "Yes":
                     # Dramatic scenario with visible red background
                     st.markdown("""
@@ -78,11 +78,10 @@ with col2:
                     st.pyplot(fig)
                 else:
                     st.success("Correct! Accuracy alone can be misleading in healthcare.")
-                    
+
                 
-    
                 # Reflection question
-                choice = st.radio("Do you think 84% accuracy means the model is good?", ["Yes", "No"])
+                choice = st.radio("Do you think 84% accuracy means the model is good?", ["Yes", "No"], index=None,)
                 if choice == "Yes":
                     st.warning("Think again! Accuracy can hide dangerous mistakes when data is imbalanced.")
                 else:
