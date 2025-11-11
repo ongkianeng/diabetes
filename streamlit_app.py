@@ -1,32 +1,32 @@
 import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
 
-st.title("Diabetes Risk Prediction")
+# Title with big font
+st.markdown("<h1 style='text-align: center; color: #FF5722;'>Diabetes Risk Prediction</h1>", unsafe_allow_html=True)
 
-# Define input options
+# Inputs
 fruits = ['Yes', 'No']
 veggies = ['Yes', 'No']
+fried_food = ['Yes', 'No']
+bubbletea = ['Yes', 'No']
 gender = ['Male', 'Female']
 
-# User inputs
 fruits_selected = st.selectbox("Do you eat fruits daily?", fruits)
 veggies_selected = st.selectbox("Do you eat vegetables daily?", veggies)
+fried_food_selected = st.selectbox("Do you eat fried food daily?", fried_food)
+bubbletea_selected = st.selectbox("Do you drink bubble tea more than 3X a week?", bubbletea)
 gender_selected = st.selectbox("Gender", gender)
 
-# Predict button
 if st.button("Predict diabetes risk"):
-    # Fake prediction output
-    st.success("Predicted Diabetes Risk: No")
-    st.write("Model Accuracy: **84%** ✅")
+    st.markdown("<h2 style='color: green;'>Your Predicted Diabetes Risk: No risk of diabetes</h2>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h3>", unsafe_allow_html=True)
 
-    # Reveal the truth
     if st.button("Reveal the truth"):
-        st.error("This model predicts 'No Diabetes' for EVERYONE!")
+        st.markdown("<h2 style='color: red;'>This model predicts 'No Diabetes' for EVERYONE!</h2>", unsafe_allow_html=True)
         st.write("It looks good because 84% of people in the dataset are healthy.")
         st.write("But it misses ALL diabetic patients. Would you trust this model?")
 
-        # Pie chart for dataset imbalance
+        # Pie chart
         labels = ['No Diabetes', 'Diabetes']
         sizes = [84, 16]
         colors = ['#4CAF50', '#FF5722']
