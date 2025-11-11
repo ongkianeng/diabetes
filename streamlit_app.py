@@ -76,5 +76,7 @@ with col2:
             ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors)
             st.pyplot(fig)
 
+            st.warning("Think again! Accuracy can hide dangerous mistakes when data is imbalanced.")
+
         elif st.session_state.trust_choice == "No":
             st.success("Correct! Accuracy alone can be misleading in healthcare.")
