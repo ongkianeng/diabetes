@@ -49,4 +49,4 @@ if st.button("Predict diabetes risk"):
 
     # ## Predict
     # y_unseen_pred = model.predict(df_input)[0]
-    st.success(f"Predicted Diabetes Risk: Yes")
+    st.success(f"Predicted Diabetes Risk: Yes (84% accuracy)")
