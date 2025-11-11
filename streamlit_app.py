@@ -10,8 +10,6 @@ if "predicted" not in st.session_state:
     st.session_state.predicted = False
 if "trust_choice" not in st.session_state:
     st.session_state.trust_choice = None
-if "accuracy_choice" not in st.session_state:
-    st.session_state.accuracy_choice = None
 
 # Two columns layout
 col1, col2 = st.columns([1, 1])
@@ -53,12 +51,12 @@ with col2:
         st.write("It looks good because 84% of people in the dataset are healthy.")
         st.write("But it misses ALL diabetic patients.")
 
-        # Radio buttons with persistent state
+        # Radio button for trust
         st.session_state.trust_choice = st.radio("Would you trust this model?", ["Yes", "No"], index=None)
-        st.session_state.accuracy_choice = st.radio("Do you think 84% accuracy means the model is good?", ["Yes", "No"], index=None)
 
-        # Responses persist after selection
+        # Show response based on choice
         if st.session_state.trust_choice == "Yes":
+            # Dramatic scenario
             st.markdown("""
             <div style='background-color:maroon; padding:15px; border-radius:10px;'>
             <h4 style='color:yellow;'>Imagine this...</h4>
@@ -77,10 +75,6 @@ with col2:
             fig, ax = plt.subplots()
             ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors)
             st.pyplot(fig)
-        elif st.session_state.trust_choice == "No":
-            st.success("Correct! Accuracy alone can be misleading in healthcare.")
 
-        if st.session_state.accuracy_choice == "Yes":
-            st.warning("Think again! Accuracy can hide dangerous mistakes when data is imbalanced.")
-        elif st.session_state.accuracy_choice == "No":
+        elif st.session_state.trust_choice == "No":
             st.success("Correct! Accuracy alone can be misleading in healthcare.")
