@@ -36,29 +36,29 @@ with col2:
         st.session_state.predicted = True
         st.session_state.revealed = False  # Reset reveal if clicked again
 
-    # Reveal button
+    # Show prediction only if not revealed
     if st.session_state.predicted and not st.session_state.revealed:
-        st.markdown("<h3 style='color: green;'>Your Predicted Diabetes Risk:</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: green;'>Predicted Diabetes Risk:</h3>", unsafe_allow_html=True)
         st.markdown("<h4 style='color: green;'>No risk of diabetes</h4>", unsafe_allow_html=True)
         st.markdown("<h4 style='color: #2196F3;'>Model Accuracy: <b>84%</b> ✅</h4>", unsafe_allow_html=True)
 
         if st.button("Reveal the truth"):
             st.session_state.revealed = True
 
-    # Show reveal section (replaces prediction)
+    # Reveal section replaces prediction
     if st.session_state.revealed:
         st.markdown("<h3 style='color: red;'>Reality Check</h3>", unsafe_allow_html=True)
         st.write("This model predicts 'No Diabetes' for EVERYONE!")
         st.write("It looks good because 84% of people in the dataset are healthy.")
         st.write("But it misses ALL diabetic patients. Would you trust this model?")
 
-        # Dramatic scenario
+        # Dramatic scenario with visible red background
         st.markdown("""
-        <div style='background-color:#ffe6e6; padding:15px; border-radius:10px;'>
+        <div style='background-color:#ffcccc; padding:15px; border-radius:10px;'>
         <h4 style='color:#b30000;'>Imagine this...</h4>
         <p style='font-size:16px;'>
-        Mr X went for a health check-up. The model says: <b>'No risk of diabetes'</b>. Mr X felt safe.<br><br>
-        Six months later, Mr X collapsed from undiagnosed diabetes complications.<br>
+        Mr X goes for a health check-up. The model says: <b>'No risk of diabetes'</b>. He feels safe.<br><br>
+        Six months later, Mr X collapses from undiagnosed diabetes complications.<br>
         The model was <b>84% accurate</b>—but for Mr X, it was 0%.
         </p>
         </div>
