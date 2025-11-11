@@ -1,52 +1,42 @@
-import joblib
 import streamlit as st
-import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
-## Streamlit app
 st.title("Diabetes Risk Prediction")
 
-
-## Define the input options
+# Define input options
 fruits = ['Yes', 'No']
 veggies = ['Yes', 'No']
 gender = ['Male', 'Female']
 
-## User inputs
+# User inputs
 fruits_selected = st.selectbox("Do you eat fruits daily?", fruits)
 veggies_selected = st.selectbox("Do you eat vegetables daily?", veggies)
 gender_selected = st.selectbox("Gender", gender)
 
-## Predict button
+# Predict button
 if st.button("Predict diabetes risk"):
+    # Fake prediction output
+    st.success("Predicted Diabetes Risk: No")
+    st.write("Model Accuracy: **84%** ✅")
 
-    ## Create dict for input features
-    input_data = {
-        'fruits': fruits_selected,
-        'veggies': veggies_selected,
-        'gender': gender_selected,
- 
-    }
+    # Reveal the truth
+    if st.button("Reveal the truth"):
+        st.error("This model predicts 'No Diabetes' for EVERYONE!")
+        st.write("It looks good because 84% of people in the dataset are healthy.")
+        st.write("But it misses ALL diabetic patients. Would you trust this model?")
 
-    ## Convert input data to a DataFrame
-    df_input = pd.DataFrame({
-        'fruits': [fruits_selected],
-        'veggies': [veggies_selected],
-        'gender': [gender_selected],
+        # Pie chart for dataset imbalance
+        labels = ['No Diabetes', 'Diabetes']
+        sizes = [84, 16]
+        colors = ['#4CAF50', '#FF5722']
+        fig, ax = plt.subplots()
+        ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors)
+        st.pyplot(fig)
 
-    })
-
-    ## One-hot encoding
-    df_input = pd.get_dummies(df_input, 
-                              columns = ['fruits', 'veggies', 'gender']
-                             )
-    
-    # df_input = df_input.to_numpy()
-
-    # df_input = df_input.reindex(columns = model.feature_names_in_,
-    #                             fill_value=0)
-
-
-    # ## Predict
-    # y_unseen_pred = model.predict(df_input)[0]
-    st.success(f"Predicted Diabetes Risk: Yes (84% accuracy)")
+        # Reflection question
+        choice = st.radio("Do you think 84% accuracy means the model is good?", ["Yes", "No"])
+        if choice == "Yes":
+            st.warning("Think again! Accuracy can hide dangerous mistakes when data is imbalanced.")
+        else:
+            st.success("Correct! Accuracy alone can be misleading in healthcare.")
